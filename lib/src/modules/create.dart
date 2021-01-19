@@ -185,9 +185,10 @@ void _updateTargetFiles({
 
   Process.runSync('rm', ['-rf', '$targetDir/$templateNmae']);
 
-  print('\n');
+  print('\n✨ Install dependencies...... \n');
 
-  Process.start('flutter', ['pub', 'get']).then((process) {
+  Process.start('flutter', ['pub', 'get'], workingDirectory: '$targetDir')
+      .then((process) {
     stdout.addStream(process.stdout);
     stderr.addStream(process.stderr);
     process.exitCode.then((exit) {
