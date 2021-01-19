@@ -1,13 +1,13 @@
 # 项目说明
 
-基于 dart 实现的命令
+基于 dart 实现的 flutter 脚手架
 
 ### 安装
 
 安装 mapp 至全局
 
 ```
-dart pub global activate -sgit http://gitlab.hive-intel.com/wangjiaqiang/mapp.git
+dart pub global activate -sgit https://github.com/icofans/mapp.git
 ```
 
 如果提示如下,则需要配置环境变量

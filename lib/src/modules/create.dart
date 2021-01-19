@@ -4,8 +4,7 @@ import 'dart:io';
 import 'package:mapp/src/utils/utils.dart';
 
 // app 模版的远程仓库地址
-const appTemplateUrl =
-    'http://gitlab.hive-intel.com/wangjiaqiang/app_template.git';
+const appTemplateUrl = 'https://github.com/icofans/app_template.git';
 
 const templateNmae = 'app_template';
 
