@@ -1,12 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 
-import 'package:dart_console/dart_console.dart';
-import 'package:mapp/mapp.dart';
 import 'package:mapp/src/utils/utils.dart';
-import 'package:path/path.dart' as path;
-import 'package:tuple/tuple.dart';
 
 // app 模版的远程仓库地址
 const appTemplateUrl =

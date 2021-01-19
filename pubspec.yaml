@@ -7,14 +7,12 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  yaml: ^2.2.1
-  recase: ^3.0.0
+  # yaml: ^2.2.1
+  # recase: ^3.0.0
   ansicolor: ^1.0.2
-  http: ^0.12.0+2
-  path: ^1.6.2
-  args: ^1.5.2
-  dart_console: ^0.6.0
-  tuple: ^1.0.3
+  # update
+  # http: ^0.12.0+2
+  # args: ^1.5.2
 
 dev_dependencies:
   test: ^1.9.4
