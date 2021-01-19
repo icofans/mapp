@@ -26,6 +26,12 @@ You can fix that by adding this to your shell's config file (.bashrc, .bash_prof
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 ```
 
+执行使其生效
+
+```
+source ~/.zshrc
+```
+
 ### 使用
 
 使用 mapp 创建 xxx_app,根据提示配置包名等
@@ -45,6 +51,12 @@ dart pub global deactivate mapp
 
 ```
 
-```
+### 功能
 
-```
+通过远程模版创建一个新项目,可以指定一些简单的配置参数
+
+### Features
+
+- 可以动态配置是否生成某模块
+- 单独生成项目中使用的单文件
+- ......
