@@ -1,0 +1,23 @@
+name: mapp
+description: CLI for flutter
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  yaml: ^2.2.1
+  recase: ^3.0.0
+  ansicolor: ^1.0.2
+  http: ^0.12.0+2
+  path: ^1.6.2
+  args: ^1.5.2
+  dart_console: ^0.6.0
+  tuple: ^1.0.3
+
+dev_dependencies:
+  test: ^1.9.4
+
+executables:
+  mapp: main
