@@ -10,9 +10,10 @@ dependencies:
   # yaml: ^2.2.1
   # recase: ^3.0.0
   ansicolor: ^1.0.2
+  cli_util: ^0.2.0
   # update
   # http: ^0.12.0+2
-  # args: ^1.5.2
+  args: ^1.6.0
 
 dev_dependencies:
   test: ^1.9.4
