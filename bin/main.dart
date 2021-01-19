@@ -1,7 +1,6 @@
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:mapp/src/commands/commands.dart';
-import 'package:mapp/src/modules/modules.dart';
 
 void main(List<String> arguments) {
   final runner = configureCommand(arguments);

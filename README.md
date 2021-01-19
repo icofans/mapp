@@ -10,17 +10,41 @@
 dart pub global activate -sgit http://gitlab.hive-intel.com/wangjiaqiang/mapp.git
 ```
 
+如果提示如下,则需要配置环境变量
+
+```
+Warning: Pub installs executables into $HOME/.pub-cache/bin, which is not on your path.
+You can fix that by adding this to your shell's config file (.bashrc, .bash_profile, etc.):
+
+  export PATH="$PATH":"$HOME/.pub-cache/bin"
+
+```
+
+打开或创建您使用的 shell 的 rc 文件，比如 ~/.bashrc、~/.zshrc 等,添加以下文件
+
+```
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+```
+
 ### 使用
 
 使用 mapp 创建 xxx_app,根据提示配置包名等
 
 ```
+
 mapp create xxx_app
+
 ```
 
 ### 移除
 
 ```
+
 dart pub global list
 dart pub global deactivate mapp
+
+```
+
+```
+
 ```

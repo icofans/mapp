@@ -5,6 +5,7 @@ AnsiPen green = AnsiPen()..green(bold: true);
 AnsiPen white = AnsiPen()..white(bold: true);
 AnsiPen yellow = AnsiPen()..yellow(bold: true);
 AnsiPen gray = AnsiPen()..gray();
+AnsiPen blue = AnsiPen()..blue(bold: true);
 
 void success(msg) => print(green('SUCCESS: $msg'));
 void title(msg) => print(green('$msg'));

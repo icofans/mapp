@@ -41,7 +41,7 @@ void _create(
       options: ['overwrite', 'cancel'],
     );
     if (action == 'overwrite') {
-      print('\nRemoving ${yellow(targetDir)}...\n');
+      print('\nRemoving ${blue(targetDir)}...\n');
       targetDir.deleteSync(recursive: true);
     } else {
       return;
@@ -79,7 +79,7 @@ void _create(
   final flutterArgs = createFlutterArgs(
       projectName, packageName, androidLanguage, iosLanguage, description);
 
-  print('\n✨ Creating project in ' + yellow(targetDir.path));
+  print('\n✨ Creating project in ' + blue(targetDir.path));
   Process.start('flutter', flutterArgs, runInShell: true).then((process) {
     stdout.addStream(process.stdout);
     stderr.addStream(process.stderr);
@@ -192,8 +192,7 @@ void _updateTargetFiles({
     stderr.addStream(process.stderr);
     process.exitCode.then((exit) {
       if (exit == 0) {
-        print(
-            green('\n🎉  Successfully created project ') + yellow(projectName));
+        print(green('\n🎉  Successfully created project ') + blue(projectName));
         print(white('👉  Get started with the following commands:\n'));
         print('\$ ' + green('cd $projectName'));
         print('\$ ' + green('flutter run\n\n'));
@@ -233,7 +232,7 @@ String _input({
   String message = "",
   String defaultValue = "",
 }) {
-  stdout.write(yellow(message) + white('($defaultValue)') + ": ");
+  stdout.write(blue(message) + white('($defaultValue)') + ": ");
   var line = stdin.readLineSync(encoding: Encoding.getByName("utf-8"));
   if (line.trim() == null || line.trim().isEmpty) {
     _answer(defaultValue);
@@ -250,7 +249,7 @@ String _select({
   String message,
   List options,
 }) {
-  print(yellow(message) + white('(Use arrow keys))'));
+  print(blue(message) + white('(Use arrow keys))'));
   final menu = ConsoleSelector(options);
   final result = menu.choose();
   _answer(result.toString());
