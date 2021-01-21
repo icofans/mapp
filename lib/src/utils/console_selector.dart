@@ -164,7 +164,7 @@ class ConsoleSelector<T> {
     _stdin.lineMode = prevLineMode;
     _stdin.echoMode = prevEchoMode;
     // clear
-    _moveUp(_options.length);
+    // _moveUp(_options.length);
     return _SimpleResult(result, modifierKey);
   }
 

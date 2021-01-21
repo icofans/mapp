@@ -37,18 +37,18 @@ source ~/.zshrc
 使用 mapp 创建 xxx_app,根据提示配置包名等
 
 ```
-
+// 创建项目
 mapp create xxx_app
 
+// 修改名称,包名
+mapp rename
 ```
 
 ### 移除
 
 ```
-
 dart pub global list
 dart pub global deactivate mapp
-
 ```
 
 ### 功能

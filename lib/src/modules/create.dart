@@ -1,6 +1,7 @@
-import 'dart:convert';
 import 'dart:io';
 
+import 'package:mapp/mapp.dart';
+import 'package:mapp/src/modules/grade_config.dart';
 import 'package:mapp/src/utils/utils.dart';
 
 // app 模版的远程仓库地址
@@ -14,6 +15,7 @@ const regVersion = 'version: 1.0.0+1';
 
 String replaceDescription = '';
 String replaceVersion = '';
+String replaceAppName = '';
 
 /// 创建项目
 ///
@@ -35,7 +37,7 @@ void _create(
   Directory targetDir = Directory(current.path + '/' + projectName);
 
   if (targetDir.existsSync()) {
-    String action = _select(
+    String action = select(
       message: 'Target directory ${targetDir.path} already exists. you can:',
       options: ['overwrite', 'cancel'],
     );
@@ -48,37 +50,43 @@ void _create(
   }
   // 设置
   if (packageName == null) {
-    packageName = _input(
+    packageName = input(
       message:
           '1、The organization responsible for your new Flutter project, in reverse domain name notation. This string is used in Java package names and as prefix in the iOS bundle identifier.',
-      defaultValue: 'com.example.$projectName',
+      defaultValue: 'com.example',
     );
   }
 
-  String iosLanguage = _select(
+  String iosLanguage = select(
     message: '2、Please select ios programming language',
     options: ['objc', 'swift'],
   );
-  String androidLanguage = _select(
+  String androidLanguage = select(
     message: '3、Please select android programming language',
     options: ['java', 'kotlin'],
   );
-  String description = _input(
+  String description = input(
     message: '4、Please input your project description',
     defaultValue: 'A new Flutter project. Created by mapp',
   );
-  String version = _input(
+  String version = input(
     message: '5、Please input project version',
     defaultValue: '1.0.0',
   );
+  String appName = input(
+    message: '6、Please input App display name',
+    defaultValue: projectName,
+  );
 
+  // 需要修改的内容
   replaceDescription = description;
   replaceVersion = version;
+  replaceAppName = appName;
 
   final flutterArgs = createFlutterArgs(
       projectName, packageName, androidLanguage, iosLanguage, description);
 
-  print('\n✨ Creating project in ' + blue(targetDir.path));
+  print('\n👉  Creating project in ' + blue(targetDir.path) + '\n');
   Process.start('flutter', flutterArgs, runInShell: true).then((process) {
     stdout.addStream(process.stdout);
     stderr.addStream(process.stderr);
@@ -94,7 +102,7 @@ void _create(
 ///
 ///
 void _fetchTemplate(String projectName, Directory targetDir) {
-  print(green('✨ Download template from git repository... \n'));
+  print(green('\n👉  Download template from git repository... \n'));
   Process.start('git', ['clone', appTemplateUrl, templateNmae],
           workingDirectory: targetDir.path)
       .then((process) {
@@ -102,9 +110,14 @@ void _fetchTemplate(String projectName, Directory targetDir) {
     stderr.addStream(process.stderr);
     process.exitCode.then((exit) {
       if (exit == 0) {
+        print(green('\n👉  Generate template... \n'));
         _generateTargetFiles(
           projectName: projectName,
           filePath: targetDir.path + '/' + templateNmae,
+        );
+        _modifyTargetFiles(
+          projectName: projectName,
+          targetDir: targetDir.path,
         );
         _updateTargetFiles(
           projectName: projectName,
@@ -162,7 +175,29 @@ void _generateTargetFiles({String projectName, String filePath}) {
   }
 }
 
+/// 配置文件
 ///
+///
+void _modifyTargetFiles({
+  String projectName,
+  String targetDir,
+}) {
+  print(green('\n👉  Generate android configuration \n'));
+  // 修改App名称
+  if (replaceAppName != projectName) {
+    modifyName(replaceAppName, ModifyPlatform.all,
+        targetDir: Directory(targetDir));
+  }
+  // 开启ext
+  generateConfigGradle(targetDir, projectName);
+  modifyBuildGradle(targetDir);
+  // 修改build gradle
+  modifyAppBuildGrade(targetDir);
+  // 开启混淆
+  enableProguard(targetDir, projectName);
+}
+
+/// 更新文件
 ///
 ///
 void _updateTargetFiles({
@@ -184,7 +219,7 @@ void _updateTargetFiles({
 
   Process.runSync('rm', ['-rf', '$targetDir/$templateNmae']);
 
-  print('\n✨ Install dependencies...... \n');
+  print(green('\n👉  Install dependencies...... \n'));
 
   Process.start('flutter', ['pub', 'get'], workingDirectory: '$targetDir')
       .then((process) {
@@ -226,40 +261,9 @@ void _replace({
   }
 }
 
-/// 获取用户输入的内容
+/// flutter 命令参数
 ///
-String _input({
-  String message = "",
-  String defaultValue = "",
-}) {
-  stdout.write(blue(message) + white('($defaultValue)') + ": ");
-  var line = stdin.readLineSync(encoding: Encoding.getByName("utf-8"));
-  if (line.trim() == null || line.trim().isEmpty) {
-    _answer(defaultValue);
-    return defaultValue;
-  } else {
-    _answer(line.trim());
-    return line.trim();
-  }
-}
-
-/// 获取用户选择的内容
 ///
-String _select({
-  String message,
-  List options,
-}) {
-  print(blue(message) + white('(Use arrow keys))'));
-  final menu = ConsoleSelector(options);
-  final result = menu.choose();
-  _answer(result.toString());
-  return result.toString();
-}
-
-void _answer(String result) {
-  print('answer: ' + green(result));
-}
-
 List<String> createFlutterArgs(
   String projectName,
   String packageName,

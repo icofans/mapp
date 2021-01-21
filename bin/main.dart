@@ -48,6 +48,7 @@ CommandRunner configureCommand(List<String> arguments) {
         // ..addCommand(InstallCommandAbbr())
         // ..addCommand(UninstallCommand())
         ..addCommand(CreateCommand())
+        ..addCommand(RenameCommand())
       // ..addCommand(RevertCommand())
       // ..addCommand(LocalizationCommand());
       ;
