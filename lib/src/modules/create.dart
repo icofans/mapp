@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:mapp/mapp.dart';
 import 'package:mapp/src/modules/grade_config.dart';
+import 'package:mapp/src/templates/flutterw_template.dart';
 import 'package:mapp/src/utils/utils.dart';
 
 // app 模版的远程仓库地址
@@ -195,6 +196,32 @@ void _modifyTargetFiles({
   modifyAppBuildGrade(targetDir);
   // 开启混淆
   enableProguard(targetDir, projectName);
+
+  _generateFlutterw(targetDir);
+}
+
+/// 生成flutter版本控制
+_generateFlutterw(String targetDir) {
+  Directory directory = Directory(targetDir);
+  // 引入config.grade
+  String path = directory.path + '/flutterw';
+  File file = File(path);
+  file.writeAsStringSync(flutterwTemplate());
+
+  // 赋予可执行
+  Process.runSync('chmod', ['a+x', 'flutterw'], workingDirectory: targetDir);
+  // 添加gitignore
+  String ignorePath = directory.path + '/.gitignore';
+  File ignoreFile = File(ignorePath);
+  try {
+    String contents = ignoreFile.readAsStringSync();
+    contents = contents +
+        '''\n
+# mapp 
+.flutter/
+    ''';
+    ignoreFile.writeAsStringSync(contents);
+  } catch (e) {}
 }
 
 /// 更新文件
