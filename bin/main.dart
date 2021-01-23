@@ -1,6 +1,7 @@
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:mapp/src/commands/commands.dart';
+import 'package:mapp/src/commands/generate_command.dart';
 
 void main(List<String> arguments) {
   final runner = configureCommand(arguments);
@@ -38,20 +39,9 @@ void executeCommand(CommandRunner runner, List<String> arguments) {
 
 CommandRunner configureCommand(List<String> arguments) {
   var runner = CommandRunner('mapp', 'CLI for Flutter.')
-        // ..addCommand(StartCommand())
-        // ..addCommand(RunCommand())
-        // ..addCommand(GenerateCommand())
-        // ..addCommand(GenerateCommandAbbr())
-        // ..addCommand(UpdateCommand())
-        // ..addCommand(UpgradeCommand())
-        // ..addCommand(InstallCommand())
-        // ..addCommand(InstallCommandAbbr())
-        // ..addCommand(UninstallCommand())
-        ..addCommand(CreateCommand())
-        ..addCommand(RenameCommand())
-      // ..addCommand(RevertCommand())
-      // ..addCommand(LocalizationCommand());
-      ;
+    ..addCommand(CreateCommand())
+    ..addCommand(RenameCommand())
+    ..addCommand(GenerateCommand());
 
   runner.argParser.addFlag('version', abbr: 'v', negatable: false);
   return runner;
