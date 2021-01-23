@@ -42,7 +42,6 @@ CommandRunner configureCommand(List<String> arguments) {
     ..addCommand(CreateCommand())
     ..addCommand(RenameCommand())
     ..addCommand(GenerateCommand());
-
   runner.argParser.addFlag('version', abbr: 'v', negatable: false);
   return runner;
 }
